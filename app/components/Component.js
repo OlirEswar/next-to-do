@@ -10,7 +10,11 @@ export default function Component({ label = "Checkbox Label", setTodos }) {
 
   useEffect(() => {
     if (isChecked) {
-      fetch(`/api/delete-pet?text=${label}`).then((res) => res.json());
+      fetch(`/api/delete-pet?text=${label}`)
+        .then((res) => res.json())
+        .then((todos) => {
+          setTodos(todos.todos.rows.map((obj) => obj.text));
+        });
     }
   }, [isChecked]);
 
